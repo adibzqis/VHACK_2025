@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iotrafix/screen/welcome.dart';
+import 'package:iotrafix/screen/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'IoTraffix',
-      home: const WelcomeScreen(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(), // or customize your theme
+      home: const SplashScreen(),
     );
   }
 }
