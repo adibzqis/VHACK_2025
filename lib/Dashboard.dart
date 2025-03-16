@@ -50,7 +50,7 @@ class DashboardScreen extends StatelessWidget {
               ),
               _buildDrawerItem(Icons.dashboard, 'Dashboard', () {Navigator.pop(context);},),
               _buildDrawerItem(Icons.settings, 'Settings', () {Navigator.pop(context);Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingScreen()));},),
-              _buildDrawerItem(Icons.settings, 'Log Out', () {Navigator.pop(context);},)
+              _buildDrawerItem(Icons.settings, 'Log Out', () {Navigator.pop(context);},) //will be connected to adib's screen
             ],
           ),
         ),
