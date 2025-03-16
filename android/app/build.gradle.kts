@@ -6,9 +6,15 @@ plugins {
 }
 
 android {
+<<<<<<< HEAD
     namespace = "com.example.iotrafix"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"
+=======
+    namespace = "com.example.project"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+>>>>>>> c5b71a7 (third commit)
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -21,7 +27,11 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+<<<<<<< HEAD
         applicationId = "com.example.iotrafix"
+=======
+        applicationId = "com.example.project"
+>>>>>>> c5b71a7 (third commit)
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
