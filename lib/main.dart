@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iotrafix/screen/splash.dart';
+import 'package:iotrafix/loginScreen/splash.dart';
 
 void main() {
   runApp(const MyApp());

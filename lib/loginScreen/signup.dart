@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iotrafix/component/my_textfield.dart';
-import 'package:iotrafix/screen/welcome.dart';
+import 'package:iotrafix/loginScreen/welcome.dart';
 
 class SignupScreen extends StatelessWidget {
    SignupScreen({super.key});

@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iotrafix/screen/signin.dart';
-import 'package:iotrafix/screen/signup.dart';
+import 'package:iotrafix/dashboardScreen/Dashboard.dart';
+import 'package:iotrafix/loginScreen/signin.dart';
+import 'package:iotrafix/loginScreen/signup.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -141,7 +142,7 @@ class WelcomeScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignupScreen()));
+                                MaterialPageRoute(builder: (context) => DashboardApp()));
                           },
                           child: Text(
                         'Guest Mode',
