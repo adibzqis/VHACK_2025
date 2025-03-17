@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "iotrafix",
     "short_name": "iotrafix",
+=======
+    "name": "project",
+    "short_name": "project",
+>>>>>>> c5b71a7 (third commit)
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

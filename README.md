@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # iotrafix
+=======
+# project
+>>>>>>> c5b71a7 (third commit)
 
 A new Flutter project.
 
