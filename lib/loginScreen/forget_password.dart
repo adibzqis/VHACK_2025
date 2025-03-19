@@ -121,6 +121,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,
+                        color: Colors.white,
+                        letterSpacing: 0.5,
                       ),
                     ),
                   )
