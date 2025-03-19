@@ -107,6 +107,15 @@ class ForgotPasswordScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.pop(context);
                     },
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      backgroundColor: Colors.white.withOpacity(0.2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(color: Colors.white),
+                      ),
+                    ),
                     child: Text(
                       'Back to Sign In',
                       style: TextStyle(
