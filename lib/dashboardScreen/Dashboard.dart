@@ -298,6 +298,68 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 }
 
+class DashboardHomeScreen extends StatelessWidget {
+  const DashboardHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Welcome back!',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 26,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Explore your features below',
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 24),
+          Expanded(
+            child: GridView.count(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              children: [
+                DashboardCard(
+                  title: 'Live Map',
+                  icon: Icons.map_sharp,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LiveMap())),
+                ),
+                DashboardCard(
+                  title: 'Signal Assistant',
+                  icon: Icons.computer_outlined,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SmartSignalAssistantScreen())),
+                ),
+                DashboardCard(
+                  title: 'Hazard Report',
+                  icon: Icons.dangerous,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HazardReportScreen())),
+                ),
+                DashboardCard(
+                  title: 'News',
+                  icon: Icons.newspaper,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NewsScreen())),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class DashboardCard extends StatelessWidget {
   final String title;
   final IconData icon;
