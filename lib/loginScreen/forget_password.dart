@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iotrafix/component/my_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   ForgotPasswordScreen({super.key});
 
   final TextEditingController emailController = TextEditingController();
+
+  // A reusable dialog box method
+  void showAlertDialog(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        backgroundColor: Colors.white,
+        title: Text(title,
+            style: GoogleFonts.archivoBlack(
+                fontSize: 20, color: Colors.black)),
+        content: Text(message,
+            style: GoogleFonts.archivoBlack(fontSize: 16, color: Colors.black87)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("OK", style: TextStyle(color: Colors.black)),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +43,13 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
           ),
 
-          // Top AppBar-like section with back button and icon
+          // Top section
           Align(
             alignment: Alignment.topCenter,
             child: SafeArea(
               child: Row(
                 children: [
-                  BackButton(
-                    color: Colors.white,
-                  ),
+                  BackButton(color: Colors.white),
                   Padding(
                     padding: const EdgeInsets.only(left: 80),
                     child: Icon(
@@ -44,7 +65,7 @@ class ForgotPasswordScreen extends StatelessWidget {
 
           // Main content
           Padding(
-            padding: const EdgeInsets.only(top: 355),
+            padding: const EdgeInsets.only(top: 315),
             child: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -74,22 +95,39 @@ class ForgotPasswordScreen extends StatelessWidget {
                     hintText: 'Email Address',
                     obscureText: false,
                   ),
-
                   SizedBox(height: 30),
 
                   // Reset button
                   ElevatedButton(
-                    onPressed: () {
-                      // Add reset logic here (e.g., send reset email)
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Password reset link sent!'),
-                        ),
-                      );
+                    onPressed: () async {
+                      final email = emailController.text.trim();
+
+                      if (email.isEmpty) {
+                        showAlertDialog(
+                            context,
+                            'Missing Email',
+                            'Please enter your email address');
+                        return;
+                      }
+
+                      try {
+                        await FirebaseAuth.instance
+                            .sendPasswordResetEmail(email: email);
+                        showAlertDialog(
+                            context,
+                            'Success',
+                            'Password reset email has been sent!');
+                      } catch (e) {
+                        showAlertDialog(
+                            context,
+                            'Error',
+                            e.toString().replaceAll('Exception: ', ''));
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      padding:
+                      EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     ),
                     child: Text(
                       'Reset Password',
@@ -99,8 +137,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
-                  SizedBox(height: 20),
+                  SizedBox(height: 25),
 
                   // Back to Sign In
                   TextButton(
@@ -109,7 +146,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                     },
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      padding:
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                       backgroundColor: Colors.white.withOpacity(0.2),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -118,14 +156,13 @@ class ForgotPasswordScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Back to Sign In',
-                      style: TextStyle(
-                        color: Colors.white,
+                      style: GoogleFonts.archivoBlack(
                         fontSize: 14,
                         color: Colors.white,
                         letterSpacing: 0.5,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

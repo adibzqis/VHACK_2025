@@ -1,7 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iotrafix/loginScreen/splash.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -13,7 +19,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'IoTraffix',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(), // or customize your theme
+      theme: ThemeData(
+        primaryColor: const Color(0xFF3F74FF),
+        scaffoldBackgroundColor: const Color(0xFF3F74FF),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF3F74FF),
+          foregroundColor: Colors.white,
+        ),
+        textTheme: GoogleFonts.archivoBlackTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
       home: const SplashScreen(),
     );
   }

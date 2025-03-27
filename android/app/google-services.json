@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1070324829777",
+    "project_id": "iotrafiix",
+    "storage_bucket": "iotrafiix.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070324829777:android:073777c4422bba0547f270",
+        "android_client_info": {
+          "package_name": "com.example.iotrafix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKvkn2Y3v8UJ8_pGkTaXyKMwrGUWKb6CA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,11 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iotrafix/dashboardScreen/Parking.dart';
+import 'package:iotrafix/shoppingScreens/ShoppingScreen.dart';
+import 'package:iotrafix/dashboardScreen/profile.dart';
 import '../loginScreen/welcome.dart';
+import 'profile.dart';
 import 'LiveMap.dart';
 import 'SmartSignalAssistantScreen.dart';
 import 'HazardReportScreen.dart';
@@ -16,9 +21,10 @@ class DashboardApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Dashboard',
+      title: 'Home',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         primaryColor: const Color(0xFF3F74FF),
@@ -31,244 +37,69 @@ class DashboardApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: const DashboardScreen(),
+      home: DashboardScreen(),
     );
   }
 }
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+class DashboardScreen extends StatefulWidget {
+  //final String username;
+
+  DashboardScreen({
+    //required this.username,
+    super.key
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF3F74FF),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.white,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(color: Color(0xFF3F74FF)),
-                child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
-              ),
-              _buildDrawerItem(Icons.dashboard, 'Dashboard', () {
-                Navigator.pop(context);
-              }),
-              _buildDrawerItem(Icons.settings, 'Settings', () {
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingScreen()));
-              }),
-              _buildDrawerItem(Icons.logout, 'Log Out', () {
-                Navigator.pop(context);
-                _showLogoutConfirmationDialog(context);
-              }),
-            ],
-          ),
-        ),
-      ),
-      appBar: AppBar(
-        title: const Text('Dashboard', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Welcome back!',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 26,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Explore your features below',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 24),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                children: [
-                  DashboardCard(
-                    title: 'Live Map',
-                    icon: Icons.map_sharp,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LiveMap())),
-                  ),
-                  DashboardCard(
-                    title: 'Smart Signal Assistant',
-                    icon: Icons.computer_outlined,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SmartSignalAssistantScreen())),
-                  ),
-                  DashboardCard(
-                    title: 'Hazard Report',
-                    icon: Icons.dangerous,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HazardReportScreen())),
-                  ),
-                  DashboardCard(
-                    title: 'News',
-                    icon: Icons.newspaper,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsScreen())),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDrawerItem(IconData icon, String title, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        elevation: 3,
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Icon(icon, size: 28, color: const Color(0xFF3F74FF)),
-              const SizedBox(width: 12),
-              Text(
-                title,
-                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  int index = 2;
+  int index = 0;
+
+  final List<Widget> screens = [
+    DashboardHomeScreen(), // Dashboard main grid
+    NewsScreen(),
+    Shoppingscreen(),
+    ProfileUI(),
+    SettingScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     final items = <Widget>[
       Icon(Icons.home, size: 45),
-      Icon(Icons.notifications, size : 45),
+      Icon(Icons.notifications, size: 45),
       Icon(Icons.shopping_cart, size: 45),
-      Icon(Icons.person, size : 45),
+      Icon(Icons.person, size: 45),
       Icon(Icons.settings, size: 45),
     ];
 
     return Scaffold(
       backgroundColor: const Color(0xFF3F74FF),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.white,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(color: Color(0xFF3F74FF)),
-                child: Text('Menu', style: TextStyle(color: Colors.white, fontSize: 24)),
-              ),
-              _buildDrawerItem(Icons.dashboard, 'Home', () {
-                Navigator.pop(context);
-              }),
-              _buildDrawerItem(Icons.settings, 'Settings', () {
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingScreen()));
-              }),
-              _buildDrawerItem(Icons.logout, 'Log Out', () {
-                Navigator.pop(context);
-                _showLogoutConfirmationDialog(context);
-              }),
-            ],
-          ),
-        ),
-      ),
+      drawer: index == 0 ? _buildDrawer(context) : null, // Drawer only for Home
       appBar: AppBar(
-        title: const Text('Home', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-        leading: Builder(
+        title: Text(
+          _getAppBarTitle(index),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        leading: index == 0
+            ? Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.menu),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
-        ),
+        )
+            : null,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Welcome back!',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 26,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Explore your features below',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 24),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                children: [
-                  DashboardCard(
-                    title: 'Live Map',
-                    icon: Icons.map_sharp,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LiveMap())),
-                  ),
-                  DashboardCard(
-                    title: 'Signal Assistant',
-                    icon: Icons.computer_outlined,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SmartSignalAssistantScreen())),
-                  ),
-                  DashboardCard(
-                    title: 'Hazard Report',
-                    icon: Icons.dangerous,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HazardReportScreen())),
-                  ),
-                  DashboardCard(
-                    title: 'News',
-                    icon: Icons.newspaper,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsScreen())),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: screens[index],
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
         items: items,
         index: index,
         height: 70,
         animationCurve: Curves.easeInOut,
-        onTap: (index) => setState(() => this.index = index),
+        onTap: (i) => setState(() => index = i),
       ),
     );
   }
@@ -398,7 +229,7 @@ class DashboardHomeScreen extends StatelessWidget {
                 DashboardCard(
                   title: 'Live Map',
                   icon: Icons.map_sharp,
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LiveMap())),
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LiveMapApp())),
                 ),
                 DashboardCard(
                   title: 'Signal Assistant',
@@ -415,6 +246,11 @@ class DashboardHomeScreen extends StatelessWidget {
                   icon: Icons.newspaper,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NewsScreen())),
                 ),
+                DashboardCard(
+                  title: 'Parking',
+                  icon: Icons.local_parking,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ParkingSimulationPage())),
+                ),
               ],
             ),
           ),
@@ -428,12 +264,14 @@ class DashboardCard extends StatelessWidget {
   final String title;
   final IconData icon;
   final VoidCallback onTap;
+  final double titleFontSize; // <-- new parameter
 
   const DashboardCard({
     super.key,
     required this.title,
     required this.icon,
     required this.onTap,
+    this.titleFontSize = 20, // <-- default font size
   });
 
   @override
@@ -454,8 +292,8 @@ class DashboardCard extends StatelessWidget {
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 16,
+                style: TextStyle(
+                  fontSize: titleFontSize, // <-- use the new parameter here
                   fontWeight: FontWeight.w600,
                   color: Colors.black87,
                 ),

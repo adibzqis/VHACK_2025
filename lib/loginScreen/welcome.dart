@@ -1,5 +1,3 @@
-// ignore_for_file: sort_child_properties_last
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iotrafix/dashboardScreen/Dashboard.dart';
@@ -17,7 +15,7 @@ class WelcomeScreen extends StatelessWidget {
           // Background Image
           SizedBox.expand(
             child: Image.asset(
-              'assets/images/background.jpg', // Make sure this path is correct
+              'assets/images/background.jpg', // Ensure this path is correct
               fit: BoxFit.cover,
             ),
           ),
@@ -29,9 +27,9 @@ class WelcomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // IoTraffix Title at Top Center
+                  // IoTraffix Title
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 250.0, top: 25.0),
+                    padding: const EdgeInsets.only(bottom: 200.0, top: 25.0),
                     child: Column(
                       children: [
                         Text(
@@ -55,7 +53,7 @@ class WelcomeScreen extends StatelessWidget {
 
                   // Main Welcome Text
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 45),
+                    padding: const EdgeInsets.only(top: 20, bottom: 30),
                     child: RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
@@ -79,94 +77,99 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   // Buttons Row
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SigninScreen()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 26),
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: Text(
-                            'Sign In',
-                            style: GoogleFonts.archivoBlack(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SignupScreen()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 26),
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: Text(
-                            'Register',
-                            style: GoogleFonts.archivoBlack(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 25),
-                  Column(
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
+                  Padding(
+                    padding: const EdgeInsets.only(top : 30),
+                    child: Row(
+                      children: [
+                        // Sign In Button
+                        Expanded(
+                          child: buildGradientButton(
+                            text: 'Sign In',
+                            onPressed: () {
+                              Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => DashboardApp()));
-                          },
-                          child: Text(
-                        'Guest Mode',
-                        style: GoogleFonts.archivoBlack(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.black,
+                                MaterialPageRoute(builder: (context) => SigninScreen()),
+                              );
+                            },
+                          ),
                         ),
-                       ),
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 18),
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          )
+                        const SizedBox(width: 20),
+                        // Register Button
+                        Expanded(
+                          child: buildGradientButton(
+                            text: 'Register',
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => SignupScreen()),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  )
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 25),
+
+                  // Guest Mode Button
+                  buildGradientButton(
+                    text: 'Guest Mode',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DashboardApp()),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // Gradient Button Builder
+  Widget buildGradientButton({required String text, required VoidCallback onPressed}) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        gradient: const LinearGradient(
+          colors: [Color(0xFFFF8C00), Color(0xFFFFA500)], // Orange gradient
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 22),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          backgroundColor: Colors.transparent, // Makes gradient visible
+          shadowColor: Colors.transparent, // Avoids default button shadow
+        ),
+        child: Text(
+          text,
+          style: GoogleFonts.archivoBlack(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }
