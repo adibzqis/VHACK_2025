@@ -273,6 +273,70 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  String _getAppBarTitle(int index) {
+    switch (index) {
+      case 0:
+        return 'Home';
+      case 1:
+        return 'News';
+      case 2:
+        return 'Shopping';
+      case 3:
+        return 'Profile';
+      case 4:
+        return 'Settings';
+      default:
+        return 'App';
+    }
+  }
+
+  Drawer _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            // Drawer Header with Profile
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF3F74FF), Color(0xFF1A45D9)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
+              accountName: const Text(
+                'Example',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              accountEmail: const Text('adib@example.com'),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(Icons.person, size: 40, color: Color(0xFF3F74FF)),
+              ),
+            ),
+
+            // Menu Items
+            _buildDrawerItem(Icons.dashboard, 'Home', () {
+              setState(() => index = 0);
+              Navigator.pop(context);
+            }),
+            _buildDrawerItem(Icons.settings, 'Settings', () {
+              setState(() => index = 4);
+              Navigator.pop(context);
+            }),
+            const Divider(), // Adds a separator line
+
+            _buildDrawerItem(Icons.logout, 'Log Out', () {
+              Navigator.pop(context);
+              _showLogoutConfirmationDialog(context);
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildDrawerItem(IconData icon, String title, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
