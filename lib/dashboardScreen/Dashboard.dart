@@ -1,7 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iotrafix/dashboardScreen/Parking.dart';
 import 'package:iotrafix/shoppingScreens/ShoppingScreen.dart';
 import 'package:iotrafix/dashboardScreen/profile.dart';
 import '../loginScreen/welcome.dart';
@@ -227,13 +226,13 @@ class DashboardHomeScreen extends StatelessWidget {
               mainAxisSpacing: 16,
               children: [
                 DashboardCard(
-                  title: 'Live Map',
-                  icon: Icons.map_sharp,
+                  title: 'Proximity Detection',
+                  icon: Icons.car_crash,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LiveMapApp())),
                 ),
                 DashboardCard(
-                  title: 'Signal Assistant',
-                  icon: Icons.computer_outlined,
+                  title: 'Traffic Light Alert',
+                  icon: Icons.traffic_outlined,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SmartSignalAssistantScreen())),
                 ),
                 DashboardCard(
@@ -245,11 +244,6 @@ class DashboardHomeScreen extends StatelessWidget {
                   title: 'News',
                   icon: Icons.newspaper,
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NewsScreen())),
-                ),
-                DashboardCard(
-                  title: 'Parking',
-                  icon: Icons.local_parking,
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ParkingSimulationPage())),
                 ),
               ],
             ),
